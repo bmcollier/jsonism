@@ -25,26 +25,26 @@ schema = {
     "Lucy": int,
     "Bert": bool
 }
-json = {
+input = {
     "Bob": "Is Bob",
     "Lucy": 13,
     "Bert": True
 }
-validate(json, schema)
+validate(input, schema)
 ```
 
 ### Lists
 
 ```python
-json = ["Bob", "Alice", "John"]
+input = ["Bob", "Alice", "John"]
 schema = [str]
-validate(json, schema)
+validate(input, schema)
 ```
 
 ### Other stuff
 ```python
-json = {"David": [{"Bob": 23, "Jane": True}]}
-schema = {"David": [{"Bob": int, "Jane": bool}]}
-validate(json, schema)
+input = {"Usernames": [{"username": "Bob", "age": 23}, {"username": "Bill", "age": 98}]}
+schema = {"Usernames": [{"username": str, "age": int}]}
+validate(input, schema)
 ```
 

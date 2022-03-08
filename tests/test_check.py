@@ -11,20 +11,20 @@ class TestCheck(unittest.TestCase):
             "Lucy": int,
             "Bert": bool
         }
-        json = {
+        input = {
             "Bob": "Is Bob",
             "Lucy": 13,
             "Bert": True
         }
-        self.assertTrue(validate(json, schema))
+        self.assertTrue(validate(input, schema))
 
     def test_unsupported_type(self):
         schema = "JUST A STRING"
-        json = {
+        input = {
             "Bob": "Is Bob",
         }
         with self.assertRaises(NotImplementedError):
-            validate(json, schema)
+            validate(input, schema)
 
     def test_nested_dictionaries(self):
         schema = {
@@ -35,7 +35,7 @@ class TestCheck(unittest.TestCase):
                 "size": str
             }
         }
-        json = {
+        input = {
             "Bob": "Is Bob",
             "Lucy": 13,
             "Bert": {
@@ -43,7 +43,7 @@ class TestCheck(unittest.TestCase):
                 "size": "Medium"
             }
         }
-        self.assertTrue(validate(json, schema))
+        self.assertTrue(validate(input, schema))
 
     def test_nested_dictionaries_with_fault(self):
         schema = {
@@ -54,7 +54,7 @@ class TestCheck(unittest.TestCase):
                 "size": str
             }
         }
-        json = {
+        input = {
             "Bob": "Is Bob",
             "Lucy": 13,
             "Bert": {
@@ -62,55 +62,65 @@ class TestCheck(unittest.TestCase):
                 "size": "Medium"
             }
         }
-        self.assertFalse(validate(json, schema))
+        self.assertFalse(validate(input, schema))
 
     def test_lists(self):
-        json = ["Bob", "Alice", "John"]
+        input = ["Bob", "Alice", "John"]
         schema = [str]
-        self.assertTrue(validate(json, schema))
+        self.assertTrue(validate(input, schema))
 
     def test_lists_invalid_value(self):
-        json = ["Bob", "Alice", 12]
+        input = ["Bob", "Alice", 12]
         schema = [str]
-        self.assertFalse(validate(json, schema))
+        self.assertFalse(validate(input, schema))
 
     def test_nested_lists(self):
-        json = {
+        input = {
             "item": ["Bob", "Bob", "Bob"]
         }
         schema = {
             "item": [str]
         }
-        self.assertTrue(validate(json, schema))
+        self.assertTrue(validate(input, schema))
 
     def test_nested_lists_invalid_value(self):
-        json = {
+        input = {
             "item": ["Bob", "Frank", True]
         }
         schema = {
             "item": [str]
         }
-        self.assertFalse(validate(json, schema))
+        self.assertFalse(validate(input, schema))
 
     def test_multiple_nesting(self):
-        json = {"David": [{"Bob": 23, "Jane": True}]}
+        input = {"David": [{"Bob": 23, "Jane": True}]}
         schema = {"David": [{"Bob": int, "Jane": bool}]}
-        self.assertTrue(validate(json, schema))
+        self.assertTrue(validate(input, schema))
+
+    def test_multiple_nesting_multiple_repeats(self):
+        input = {"Usernames": [{"username": "Bob", "age": 23}, {"username": "Bill", "age": 98}]}
+        schema = {"Usernames": [{"username": str, "age": int}]}
+        self.assertTrue(validate(input, schema))
+
+    def test_multiple_nesting_multiple_repeats_with_fault(self):
+        input = {"David": [{"Bob": 23, "Jane": True}, {"Bob": 19, "Jane": 23}]}
+        schema = {"David": [{"Bob": int, "Jane": bool}]}
+        self.assertFalse(validate(input, schema))
 
     def test_string(self):
-        json = "David"
+        input = "David"
         schema = str
-        self.assertTrue(validate(json, schema))
+        self.assertTrue(validate(input, schema))
 
     def test_int(self):
-        json = 14
+        input = 14
         schema = int
-        self.assertTrue(validate(json, schema))
+        self.assertTrue(validate(input, schema))
 
     def test_float(self):
-        json = 14.3
+        input = 14.3
         schema = float
-        self.assertTrue(validate(json, schema))
+        self.assertTrue(validate(input, schema))
 
 
 if __name__ == '__main__':
