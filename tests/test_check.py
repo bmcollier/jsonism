@@ -1,6 +1,6 @@
 import unittest
 
-from pyjsonchecker.checker import checkjson
+from jsonvalidator.checker import checkjson
 
 
 class TestCheck(unittest.TestCase):

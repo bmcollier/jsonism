@@ -14,7 +14,7 @@ Example usage
 ### Import the checker
 
 ```python
-from pyjsonchecker.checker import checkjson
+from jsonvalidator.checker import checkjson
 ```
 
 ### Basic flat objects
