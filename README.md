@@ -14,7 +14,7 @@ Example usage
 ### Import the checker
 
 ```python
-from jsonvalidator.checker import checkjson
+from jsonism.checker import validate
 ```
 
 ### Basic flat objects
@@ -30,7 +30,7 @@ json = {
     "Lucy": 13,
     "Bert": True
 }
-checkjson(json, schema)
+validate(json, schema)
 ```
 
 ### Lists
@@ -38,13 +38,13 @@ checkjson(json, schema)
 ```python
 json = ["Bob", "Alice", "John"]
 schema = [str]
-checkjson(json, schema)
+validate(json, schema)
 ```
 
 ### Other stuff
 ```python
 json = {"David": [{"Bob": 23, "Jane": True}]}
 schema = {"David": [{"Bob": int, "Jane": bool}]}
-checkjson(json, schema)
+validate(json, schema)
 ```
 

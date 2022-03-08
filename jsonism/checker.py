@@ -1,7 +1,7 @@
 import logging
 
 
-def checkjson(input: any, schema: any):
+def validate(input: any, schema: any):
     if schema in [int, str, bool, float]:
         return validate_generic(input, schema)
     if type(schema) == dict:
@@ -23,7 +23,7 @@ def validate_dict(input, schema):
     for key, value in schema.items():
         if type(value) in [dict, list]:
             if type(input.get(key)) == type(value):
-                return checkjson(input.get(key), value)
+                return validate(input.get(key), value)
             else:
                 logging.warning(f"Schema field '{key}': Expected {str(dict)}, got {str(type(input.get(key)))}")
                 return False
@@ -40,6 +40,6 @@ def validate_dict(input, schema):
 def validate_list(input, schema):
     list_item_type = schema[0]
     for item in input:
-        if not checkjson(item, list_item_type):
+        if not validate(item, list_item_type):
             return False
     return True
