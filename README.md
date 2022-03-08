@@ -6,7 +6,7 @@ Python JSON Checker
 Install from pip
 ----------------
 
-```pip install jsonchecker```
+```pip install jsonvalidator```
 
 Example usage
 -------------
