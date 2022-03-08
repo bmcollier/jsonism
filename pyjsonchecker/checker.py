@@ -2,12 +2,21 @@ import logging
 
 
 def checkjson(input: any, schema: any):
+    if schema in [int, str, bool, float]:
+        return validate_generic(input, schema)
     if type(schema) == dict:
         return validate_dict(input, schema)
     elif type(schema) == list:
         return validate_list(input, schema)
     else:
         raise NotImplementedError("Unknown type found in schema")
+
+
+def validate_generic(input, schema):
+    if type(input) != schema:
+        return False
+    else:
+        return True
 
 
 def validate_dict(input, schema):
@@ -29,16 +38,8 @@ def validate_dict(input, schema):
 
 
 def validate_list(input, schema):
-    for i in range(len(schema)):
-        if type(schema[i]) in [dict, list]:
-            if isinstance(input[i], type(schema[i])):
-                return checkjson(schema[i], input[i])
-            else:
-                logging.warning(f"Unexpected value found in list. "
-                                f"Expected '{str(schema[i])}', got '{str(type(input[i]))}'")
-                return False
-        elif type(input[i]) != schema[i]:
-            logging.warning(f"Unexpected value found in list. "
-                            f"Expected '{str(schema[i])}', got '{str(type(input[i]))}'")
+    list_item_type = schema[0]
+    for item in input:
+        if not checkjson(item, list_item_type):
             return False
     return True

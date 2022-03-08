@@ -65,21 +65,21 @@ class TestCheck(unittest.TestCase):
         self.assertFalse(checkjson(json, schema))
 
     def test_lists(self):
-        json = ["Bob", 14, True]
-        schema = [str, int, bool]
+        json = ["Bob", "Alice", "John"]
+        schema = [str]
         self.assertTrue(checkjson(json, schema))
 
     def test_lists_invalid_value(self):
-        json = ["Bob", "John", True]
-        schema = [str, int, bool]
+        json = ["Bob", "Alice", 12]
+        schema = [str]
         self.assertFalse(checkjson(json, schema))
 
     def test_nested_lists(self):
         json = {
-            "item": ["Bob", 14, True]
+            "item": ["Bob", "Bob", "Bob"]
         }
         schema = {
-            "item": [str, int, bool]
+            "item": [str]
         }
         self.assertTrue(checkjson(json, schema))
 
@@ -88,56 +88,29 @@ class TestCheck(unittest.TestCase):
             "item": ["Bob", "Frank", True]
         }
         schema = {
-            "item": [str, int, bool]
+            "item": [str]
         }
         self.assertFalse(checkjson(json, schema))
 
-    def test_tuple(self):
-        pass
-
-    def test_nested_tuple(self):
-        pass
+    def test_multiple_nesting(self):
+        json = {"David": [{"Bob": 23, "Jane": True}]}
+        schema = {"David": [{"Bob": int, "Jane": bool}]}
+        self.assertTrue(checkjson(json, schema))
 
     def test_string(self):
-        pass
-
-    def test_nested_string(self):
-        pass
+        json = "David"
+        schema = str
+        self.assertTrue(checkjson(json, schema))
 
     def test_int(self):
-        pass
-
-    def test_nested_int(self):
-        pass
+        json = 14
+        schema = int
+        self.assertTrue(checkjson(json, schema))
 
     def test_float(self):
-        pass
-
-    def test_nested_float(self):
-        pass
-
-    def test_boolean(self):
-        pass
-
-    def test_nested_boolean(self):
-        pass
-
-    def test_none(self):
-        pass
-
-    def test_nested_none(self):
-        pass
-
-
-        dict
-        list
-        tuple
-        string
-        int
-        float
-        True
-        False
-        None
+        json = 14.3
+        schema = float
+        self.assertTrue(checkjson(json, schema))
 
 
 if __name__ == '__main__':
