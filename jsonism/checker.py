@@ -45,18 +45,16 @@ def _validate_dict(input, schema, allow_empty_lists, parent=None):
         if type(value) in [dict, list]:
             if type(input.get(key)) == type(value):
                 if not validate(input.get(key), value, allow_empty_lists=allow_empty_lists, parent=key):
-                    if parent:
-                        logging.info(f"In {parent}")
                     return False
             else:
                 if parent:
-                    logging.info(f"In {parent}")
+                    logging.info(f"In {parent}:")
                 logging.warning(f"Schema field '{key}': Expected {str(dict)}, got {str(type(input.get(key)))}")
                 return False
         elif key in input:
             if type(input.get(key)) != value:
                 if parent:
-                    logging.info(f"In {parent}")
+                    logging.info(f"In {parent}:")
                 logging.warning(f"Schema field '{key}': Expected {str(value)}, got {str(type(input.get(key)))}")
                 return False
         else:
