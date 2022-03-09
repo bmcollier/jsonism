@@ -59,7 +59,7 @@ def _validate_dict(input, schema, allow_empty_lists, parent=None):
                 return False
         else:
             if parent:
-                logging.info(f"In {parent}")
+                logging.info(f"In {parent}:")
             logging.warning(f"Schema field '{key}' not found in input.")
             return False
     return True
@@ -80,7 +80,5 @@ def _validate_list(input, schema, allow_empty_lists, parent=None):
     list_item_type = schema[0]
     for item in input:
         if not validate(item, list_item_type, allow_empty_lists=allow_empty_lists):
-            if parent:
-                logging.info(f"In {parent}")
             return False
     return True
