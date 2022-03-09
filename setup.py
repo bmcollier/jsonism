@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='jsonism',
-    version='1.0.1',
+    version='1.0.2',
     packages=['tests', 'jsonism'],
     url='https://github.com/bmcollier/jsonism',
     license='3-Clause BSD',
