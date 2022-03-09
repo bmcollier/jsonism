@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setup(
     name='jsonism',
-    version='1.0.5',
+    version='1.0.6',
     packages=['tests', 'jsonism'],
     url='https://github.com/bmcollier/jsonism',
     license='3-Clause BSD',

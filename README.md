@@ -23,6 +23,8 @@ Example usage
 from jsonism.checker import validate
 ```
 
+The `validate` function returns `True` if the input you give it matches the schema that you provide.
+
 ### Basic flat objects
 
 ```python
@@ -52,6 +54,27 @@ validate(input, schema)
 input = {"Usernames": [{"username": "Bob", "age": 23}, {"username": "Bill", "age": 98}]}
 schema = {"Usernames": [{"username": str, "age": int}]}
 validate(input, schema)
+```
+
+Obviously for more complex json, you can `json.loads` the input.
+
+### Permissive validation
+
+Jsonism is *permissive* when it comes to extra elements. As long as the elements listed in the schema are provided, `validate` will return `True`. If additional elements are added to the input, `validate` will still return `True`.
+
+```python
+schema = {
+    "Bob": str,
+    "Lucy": int,
+    "Bert": bool
+}
+input = {
+    "Bob": "Is Bob",
+    "Lucy": 13,
+    "Bert": True,
+    "Colin": 21
+}
+validate(input, schema)  # Will return True
 ```
 
 But it doesn't have feature *x*!

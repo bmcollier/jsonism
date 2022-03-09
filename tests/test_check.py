@@ -122,6 +122,31 @@ class TestCheck(unittest.TestCase):
         schema = float
         self.assertTrue(validate(input, schema))
 
+    def test_missing_element(self):
+        schema = {
+            "Bob": str,
+            "Lucy": int,
+            "Bert": bool
+        }
+        input = {
+            "Bob": "Is Bob",
+            "Lucy": 13,
+        }
+        self.assertFalse(validate(input, schema))
+
+    def test_extra_element(self):
+        schema = {
+            "Bob": str,
+            "Lucy": int,
+            "Bert": bool
+        }
+        input = {
+            "Bob": "Is Bob",
+            "Lucy": 13,
+            "Bert": True,
+            "Colin": 21
+        }
+        self.assertTrue(validate(input, schema))
 
 if __name__ == '__main__':
     unittest.main()
