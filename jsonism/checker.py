@@ -42,7 +42,8 @@ def _validate_dict(input, schema):
     for key, value in schema.items():
         if type(value) in [dict, list]:
             if type(input.get(key)) == type(value):
-                return validate(input.get(key), value)
+                if not validate(input.get(key), value):
+                    return False
             else:
                 logging.warning(f"Schema field '{key}': Expected {str(dict)}, got {str(type(input.get(key)))}")
                 return False

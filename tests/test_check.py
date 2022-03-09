@@ -148,5 +148,93 @@ class TestCheck(unittest.TestCase):
         }
         self.assertTrue(validate(input, schema))
 
+    def test_longer_json(self):
+        _testobject = {
+            "family": {
+                "available": True,
+                "state": "passed",
+                "members": [
+                    {
+                        "state": "ready",
+                        "status": "alive",
+                        "id": 1,
+                        "permission": True,
+                        "colour": "None",
+                        "uuid": "221edec0-e5b8-4a34-8eb6-87f97dab04b6",
+                        "year": 1990,
+                        "attributes": [
+                            {
+                                "name": "rex",
+                                "value": "no",
+                            },
+                            {
+                                "name": "banded",
+                                "value": "no"
+                            }
+                        ],
+                        "sex": "MALE"
+                    }
+                ]
+            }
+        }
+        _testschema = {
+            "family": {
+                "available": bool,
+                "state": str,
+                "members": [
+                    {
+                        "state": str,
+                        "status": str,
+                        "id": int,
+                        "permission": bool,
+                        "colour": str,
+                        "uuid": str,
+                        "year": int,
+                        "attributes": [
+                            {
+                                "name": str,
+                                "value": str,
+                            }
+                        ],
+                        "sex": str
+                    }
+                ]
+            }
+        }
+        self.assertTrue(validate(_testobject, _testschema))
+
+    def test_repeated_dict_list(self):
+        _testobject = {
+            "family": {
+                "members": [
+                    {
+                        "attributes": [
+                            {
+                                "name": "rex",
+                                "value": "no",
+                            }
+                        ],
+                        "sex": "MALE"
+                    }
+                ]
+            }
+        }
+        _testschema = {
+            "family": {
+                "members": [
+                    {
+                        "attributes": [
+                            {
+                                "name": str,
+                                "value": str,
+                            }
+                        ],
+                        "sex": str
+                    }
+                ]
+            }
+        }
+        self.assertTrue(validate(_testobject, _testschema))
+
 if __name__ == '__main__':
     unittest.main()
