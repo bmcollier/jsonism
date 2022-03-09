@@ -69,6 +69,16 @@ class TestCheck(unittest.TestCase):
         schema = [str]
         self.assertTrue(validate(input, schema))
 
+    def test_empty_list(self):
+        input = []
+        schema = [str]
+        self.assertFalse(validate(input, schema))
+
+    def test_empty_list_allowed(self):
+        input = []
+        schema = [str]
+        self.assertTrue(validate(input, schema, allow_empty_lists=True))
+
     def test_lists_invalid_value(self):
         input = ["Bob", "Alice", 12]
         schema = [str]

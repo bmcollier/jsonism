@@ -1,7 +1,7 @@
 import logging
 
 
-def validate(input: any, schema: any):
+def validate(input: any, schema: any, allow_empty_lists=False):
     """ Validate a top-level element. JSON supports lists, dicts and raw
     elements at the top level.
 
@@ -12,9 +12,9 @@ def validate(input: any, schema: any):
     if schema in [int, str, bool, float]:
         return _validate_generic(input, schema)
     if type(schema) == dict:
-        return _validate_dict(input, schema)
+        return _validate_dict(input, schema, allow_empty_lists=allow_empty_lists)
     elif type(schema) == list:
-        return _validate_list(input, schema)
+        return _validate_list(input, schema, allow_empty_lists=allow_empty_lists)
     else:
         raise NotImplementedError("Unknown type found in schema")
 
@@ -32,7 +32,7 @@ def _validate_generic(input, schema):
         return True
 
 
-def _validate_dict(input, schema):
+def _validate_dict(input, schema, allow_empty_lists):
     """ Validate a dictionary.
 
     :param input: The dictionary to be validated
@@ -42,7 +42,7 @@ def _validate_dict(input, schema):
     for key, value in schema.items():
         if type(value) in [dict, list]:
             if type(input.get(key)) == type(value):
-                if not validate(input.get(key), value):
+                if not validate(input.get(key), value, allow_empty_lists=allow_empty_lists):
                     return False
             else:
                 logging.warning(f"Schema field '{key}': Expected {str(dict)}, got {str(type(input.get(key)))}")
@@ -57,15 +57,18 @@ def _validate_dict(input, schema):
     return True
 
 
-def _validate_list(input, schema):
+def _validate_list(input, schema, allow_empty_lists):
     """ Validate a list.
 
     :param input: The list to be validated
     :param schema: The schema against which to validate, as a list
     :return: True or False
     """
+    if len(input) == 0:
+        logging.info(f"Warning! Empty list encountered. 'allow_empty_lists' is currently set to {allow_empty_lists}")
+        return allow_empty_lists
     list_item_type = schema[0]
     for item in input:
-        if not validate(item, list_item_type):
+        if not validate(item, list_item_type, allow_empty_lists=allow_empty_lists):
             return False
     return True
