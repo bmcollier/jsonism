@@ -236,5 +236,17 @@ class TestCheck(unittest.TestCase):
         }
         self.assertTrue(validate(_testobject, _testschema))
 
+    def test_missing_element(self):
+        schema = {
+            "Bob": str,
+            "Lucy": int,
+            "Bert": bool
+        }
+        input = {
+            "Bob": "Is Bob",
+            "Lucy": 13,
+        }
+        self.assertFalse(validate(input, schema))
+
 if __name__ == '__main__':
     unittest.main()

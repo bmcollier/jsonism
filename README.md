@@ -1,7 +1,7 @@
-Python JSON Checker
-===================
+Jsonism - The Simple Python JSON Checker
+========================================
 
-*A super-simple library for validating json against a schema.*
+*A super-simple library for validating JSON against a schema.*
 
 Install from pip
 ----------------
