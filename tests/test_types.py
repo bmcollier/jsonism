@@ -1,8 +1,10 @@
 import unittest
+import logging
 
 from jsonism.checker import validate
 from jsonism.types import String, Integer, Boolean, Float
 
+logging.basicConfig(level=logging.DEBUG)
 
 class TestCheck(unittest.TestCase):
 

@@ -1,5 +1,5 @@
 import logging
-
+from jsonism.types import Integer, String, Boolean, Float
 
 def validate(input: any, schema: any, allow_empty_lists=False, parent=None):
     """ Validate a top-level element. JSON supports lists, dicts and raw
@@ -9,6 +9,8 @@ def validate(input: any, schema: any, allow_empty_lists=False, parent=None):
     :param schema: JSON schema, as Python list, dict or base type
     :return: True or False
     """
+    if schema in [Integer, String, Boolean, Float]:
+        return _validate_custom(input, schema, parent=parent)
     if schema in [int, str, bool, float]:
         return _validate_generic(input, schema, parent=parent)
     if type(schema) == dict:
@@ -34,6 +36,21 @@ def _validate_generic(input, schema, parent=None):
         return True
 
 
+def _validate_custom(input, schema, parent=None):
+    """ Validate a custom type.
+
+    :param input: A base value to be validated
+    :param schema: A base type to validate the input against
+    :return: True or False
+    """
+    if not schema.validate(input):
+        if parent:
+            logging.info(f"Fault in {parent}")
+        return False
+    else:
+        return True
+
+
 def _validate_dict(input, schema, allow_empty_lists, parent=None):
     """ Validate a dictionary.
 
@@ -52,7 +69,12 @@ def _validate_dict(input, schema, allow_empty_lists, parent=None):
                 logging.info(f"Schema field '{key}': Expected {str(dict)}, got {str(type(input.get(key)))}")
                 return False
         elif key in input:
-            if type(input.get(key)) != value:
+            if type(value) in [String, Integer, Float, Boolean]:
+                if not value.validate(input.get(key)):
+                    if parent:
+                        logging.info(f"...in {parent}")
+                    return False
+            elif type(input.get(key)) != value:
                 if parent:
                     logging.info(f"In {parent}:")
                 logging.info(f"Schema field '{key}': Expected {str(value)}, got {str(type(input.get(key)))}")

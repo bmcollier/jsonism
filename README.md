@@ -77,7 +77,51 @@ input = {
 validate(input, schema)  # Will return True
 ```
 
+Value validation
+----------------
+
+This is absolutely optional, in order to keep things as simple as possible and enable the use of the in-built types `int`, `str`, `bool`, and `float` wherever possible. But we do also support the use of value validation as follows:
+
+```python
+from jsonism.checker import validate
+from jsonism.types import String, Integer, Boolean, Float
+
+schema = {
+    "Bob": String(len=6),
+    "Lucy": Integer(max=96),
+    "Bert": Boolean(value=True),
+    "Chris": Float(min=12.34)
+}
+input = {
+    "Bob": "Is Bob",
+    "Lucy": 30,
+    "Bert": True,
+    "Chris": 34.2
+}
+validate(input, schema)  # Will return True
+```
+
+### Lists of valid values
+
+```python
+from jsonism.checker import validate
+from jsonism.types import String, Integer, Boolean, Float
+
+schema = {
+    "Bob": String(options=["Is Bob", "Not Bob"]),
+    "Lucy": Integer(max=22),
+    "Bert": Boolean(value=True)
+}
+input = {
+    "Bob": "Was Bob",
+    "Lucy": 22,
+    "Bert": True
+}
+validate(input, schema)  # Will return False
+```
+
+
 But it doesn't have feature *x*!
 --------------------------------
 
-Well, I did say it was simple. I plan on allowing optional value validation in a future version. It will always support the very simple initialisation shown above. If you have a burning desire to add a feature, please either post an issue or make a pull request at https://github.com/bmcollier/jsonism.
+Well, I did say it was simple. It will always support the very simple initialisation shown above. We also now support value validation. If you have a burning desire to add a feature, please either post an issue or make a pull request at https://github.com/bmcollier/jsonism.
