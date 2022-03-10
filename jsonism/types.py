@@ -87,17 +87,17 @@ class Boolean:
 
     type = bool
 
-    def __init__(self, value=None, mandatory=True):
-        self.value = value
+    def __init__(self, allowed=None, mandatory=True):
+        self.allowed = allowed
         self.mandatory = mandatory
 
     def validate(self, input):
         if type(input) != self.type:
             logging.info(f"Expected {str(self.type)}, got {str(type(input))}")
             return False
-        if self.value:
-            if input != self.value:
-                logging.info(f"Expecting value {self.value} but got {input}.")
+        if self.allowed:
+            if input != self.allowed:
+                logging.info(f"Expecting value {self.allowed} but got {input}.")
                 return False
         return True
 

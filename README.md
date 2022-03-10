@@ -89,7 +89,7 @@ from jsonism.types import String, Integer, Boolean, Float
 schema = {
     "Bob": String(len=6),
     "Lucy": Integer(max=96),
-    "Bert": Boolean(value=True),
+    "Bert": Boolean(allowed=True),
     "Chris": Float(min=12.34)
 }
 input = {
@@ -110,7 +110,7 @@ from jsonism.types import String, Integer, Boolean, Float
 schema = {
     "Bob": String(options=["Is Bob", "Not Bob"]),
     "Lucy": Integer(max=22),
-    "Bert": Boolean(value=True)
+    "Bert": Boolean(allowed=True)
 }
 input = {
     "Bob": "Was Bob",

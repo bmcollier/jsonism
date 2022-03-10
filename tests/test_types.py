@@ -12,7 +12,7 @@ class TestCheck(unittest.TestCase):
         schema = {
             "Bob": String(len=6),
             "Lucy": Integer(max=13),
-            "Bert": Boolean(value=True),
+            "Bert": Boolean(allowed=True),
             "Chris": Float(min=12.34)
         }
         input = {
@@ -27,7 +27,7 @@ class TestCheck(unittest.TestCase):
         schema = {
             "Bob": String(options=["Is Bob", "Not Bob"]),
             "Lucy": Integer(max=13),
-            "Bert": Boolean(value=True)
+            "Bert": Boolean(allowed=True)
         }
         input = {
             "Bob": "Is Bob",
@@ -40,7 +40,7 @@ class TestCheck(unittest.TestCase):
         schema = {
             "Bob": String(options=["Is Bob", "Not Bob"]),
             "Lucy": Integer(max=13),
-            "Bert": Boolean(value=True)
+            "Bert": Boolean(allowed=True)
         }
         input = {
             "Bob": "Was Bob",
@@ -53,7 +53,7 @@ class TestCheck(unittest.TestCase):
         schema = {
             "Bob": String(len=6),
             "Lucy": Integer(max=13),
-            "Bert": Boolean(value=True)
+            "Bert": Boolean(allowed=True)
         }
         input = {
             "Bob": "Is Bob and someone else",
@@ -66,7 +66,7 @@ class TestCheck(unittest.TestCase):
         schema = {
             "Bob": String(len=6),
             "Lucy": Integer(max=13),
-            "Bert": Boolean(value=True)
+            "Bert": Boolean(allowed=True)
         }
         input = {
             "Bob": "Is Bob",
@@ -79,7 +79,7 @@ class TestCheck(unittest.TestCase):
         schema = {
             "Bob": String(len=6),
             "Lucy": Integer(max=13),
-            "Bert": Boolean(value=True)
+            "Bert": Boolean(allowed=True)
         }
         input = {
             "Bob": "Is Bob",
