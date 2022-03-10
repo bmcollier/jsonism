@@ -2,10 +2,20 @@ import logging
 
 
 class String:
+    """ Schema class for strings. Takes the place of a bare `str` when adding
+    value validation. """
 
     type = str
 
     def __init__(self, len=None, max_len=None, min_len=None, options=None, mandatory=True):
+        """ Create a new String object to validate strings in JSON schemas.
+
+        :param len: Optional string length checker for a specific set length
+        :param max_len: Optional max string length
+        :param min_len: Optional min string length
+        :param options: Optional list of valid values
+        :param mandatory: Is the field mandatory? Defaults to `True`. Not yet implemented.
+        """
         self.len = len
         self.max_len = max_len
         self.min_len = min_len
@@ -13,6 +23,11 @@ class String:
         self.mandatory = mandatory
 
     def validate(self, input):
+        """ Validate a string field
+
+        :param input: The input to validate
+        :return: True or False indicating validity
+        """
         if type(input) != self.type:
             logging.info(f"Expected {str(self.type)}, got {str(type(input))}")
             return False
@@ -36,15 +51,28 @@ class String:
 
 
 class Integer:
+    """ Schema class for integers. Takes the place of a bare `int` when adding
+    value validation."""
 
     type = int
 
     def __init__(self, max=None, min=None, mandatory=True):
+        """ Create a new Integer object to validate integers in JSON schemas.
+
+        :param max: Optional maximum integer value
+        :param min: Optional minimum integer value
+        :param mandatory: Is the field mandatory? Defaults to `True`. Not yet implemented.
+        """
         self.max = max
         self.min = min
         self.mandatory = mandatory
 
     def validate(self, input):
+        """ Validate an integer field.
+
+        :param input: The field to validate
+        :return: True or False indicating validity
+        """
         if type(input) != self.type:
             logging.info(f"Expected {str(self.type)}, got {str(type(input))}")
             return False
@@ -60,15 +88,28 @@ class Integer:
 
 
 class Float:
+    """ Schema class for floats. Takes the place of a bare `float` when adding
+    value validation."""
 
     type = float
 
     def __init__(self, max=None, min=None, mandatory=True):
+        """ Create a new Float object to validate floats in JSON schemas.
+
+        :param max: Optional maximum float value
+        :param min: Optional minimum float value
+        :param mandatory: Is the field mandatory? Defaults to `True`. Not yet implemented.
+        """
         self.max = max
         self.min = min
         self.mandatory = mandatory
 
     def validate(self, input):
+        """ Validate a floating-point field
+
+        :param input: The field to validate
+        :return: True or False indicating validity
+        """
         if type(input) != self.type:
             logging.info(f"Expected {str(self.type)}, got {str(type(input))}")
             return False
@@ -84,14 +125,26 @@ class Float:
 
 
 class Boolean:
+    """ Schema class for booleans. Takes the place of a bare `bool` when adding
+    value validation. """
 
     type = bool
 
     def __init__(self, allowed=None, mandatory=True):
+        """ Create a new Boolean object to validate booleans in JSON schemas.
+
+        :param allowed: Optional switch to only allow `true` or `false`.
+        :param mandatory: Is the field mandatory? Defaults to `True`. Not yet implemented.
+        """
         self.allowed = allowed
         self.mandatory = mandatory
 
     def validate(self, input):
+        """ Validate a boolean field
+
+        :param input: The field to validate
+        :return: True or False indicating validity
+        """
         if type(input) != self.type:
             logging.info(f"Expected {str(self.type)}, got {str(type(input))}")
             return False
