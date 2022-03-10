@@ -6,7 +6,9 @@ from jsonism.types import String, Integer, Boolean, Float
 
 logging.basicConfig(level=logging.DEBUG)
 
-class TestCheck(unittest.TestCase):
+
+class TestTypes(unittest.TestCase):
+    """ Test custom types allowing for value validation. """
 
     def test_value_validation(self):
         schema = {

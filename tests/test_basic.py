@@ -3,7 +3,8 @@ import unittest
 from jsonism.checker import validate
 
 
-class TestCheck(unittest.TestCase):
+class TestBasic(unittest.TestCase):
+    """ Test basic functionality with native Python types in schemas."""
 
     def test_basic_dictionary(self):
         schema = {
