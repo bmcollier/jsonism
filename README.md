@@ -1,5 +1,5 @@
-Jsonism - The Simple Python JSON Checker
-========================================
+Jsonism - The Simple Python JSON Checker and Schema Validator
+=============================================================
 
 *A super-simple library for validating JSON against a schema.*
 
