@@ -78,7 +78,7 @@ input = {
 validate(input, schema)  # Will return True
 ```
 
-##Value validation
+## Value validation
 
 This is absolutely optional, in order to keep things as simple as possible and enable the use of the in-built types `int`, `str`, `bool`, and `float` wherever possible. But we do also support the use of value validation as follows:
 
