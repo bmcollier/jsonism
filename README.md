@@ -3,10 +3,7 @@ Jsonism - The Simple Python JSON Checker
 
 *A super-simple library for validating JSON against a schema.*
 
-Install from pip
-----------------
-
-```pip install jsonism```
+Technical is documentation at https://jsonism.readthedocs.io
 
 Why use Jsonism?
 ----------------
@@ -14,8 +11,12 @@ Jsonism is a great alternative to *jsonschema* when you just want to do some sim
 
 It's quick to set up a basic schema checker.
 
-Example usage
--------------
+Getting Started
+---------------
+
+###Install from pip
+
+```pip install jsonism```
 
 ### Import the checker
 
@@ -77,8 +78,7 @@ input = {
 validate(input, schema)  # Will return True
 ```
 
-Value validation
-----------------
+##Value validation
 
 This is absolutely optional, in order to keep things as simple as possible and enable the use of the in-built types `int`, `str`, `bool`, and `float` wherever possible. But we do also support the use of value validation as follows:
 
@@ -119,7 +119,6 @@ input = {
 }
 validate(input, schema)  # Will return False
 ```
-
 
 But it doesn't have feature *x*!
 --------------------------------
