@@ -14,7 +14,7 @@ It's quick to set up a basic schema checker.
 Getting Started
 ---------------
 
-###Install from pip
+### Install from pip
 
 ```pip install jsonism```
 
